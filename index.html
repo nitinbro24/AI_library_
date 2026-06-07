@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Universe — One Stop AI Directory</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a26;
+    --card: #14141f;
+    --card2: #1c1c2e;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #f0eeff;
+    --muted: #888898;
+    --dim: #555565;
+    --accent: #7c6cf7;
+    --accent2: #a897ff;
+    --gold: #f5c842;
+    --glow: rgba(124,108,247,0.15);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+  .logo span { color: var(--accent2); }
+  .header-count {
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 80px 2rem 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(124,108,247,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(124,108,247,0.12);
+    border: 1px solid rgba(124,108,247,0.3);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--accent2);
+    font-weight: 500;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #a897ff, #7c6cf7, #5b8df7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 500px;
+    margin: 0 auto 36px;
+    font-weight: 300;
+  }
+
+  /* SEARCH */
+  .search-wrap {
+    max-width: 500px;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 13px 18px 13px 44px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 18px;
+  }
+
+  /* CATEGORY NAV */
+  .cat-nav {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 2rem 50px;
+  }
+  .cat-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 7px 14px;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .cat-btn:hover, .cat-btn.active {
+    background: rgba(124,108,247,0.12);
+    border-color: rgba(124,108,247,0.35);
+    color: var(--accent2);
+  }
+  .cat-btn .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* SECTIONS */
+  .main { max-width: 1200px; margin: 0 auto; padding: 0 2rem 80px; }
+  .section { margin-bottom: 60px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .section-count {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--dim);
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .ai-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .ai-card:hover {
+    border-color: var(--border2);
+    background: var(--card2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .ai-card.best {
+    border-color: rgba(245,200,66,0.3);
+    background: linear-gradient(135deg, #14141f 0%, #1a1810 100%);
+  }
+  .ai-card.best:hover {
+    border-color: rgba(245,200,66,0.5);
+    box-shadow: 0 8px 32px rgba(245,200,66,0.1);
+  }
+  .best-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(245,200,66,0.15);
+    border: 1px solid rgba(245,200,66,0.4);
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--gold);
+    padding: 2px 7px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-logo {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    font-weight: 800;
+    font-family: 'Syne', sans-serif;
+  }
+  .card-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .card-maker {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .card-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .card-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-weight: 500;
+  }
+  .tag-free { background: rgba(29,158,117,0.15); color: #3ecfa0; border: 1px solid rgba(29,158,117,0.25); }
+  .tag-paid { background: rgba(168,151,255,0.12); color: var(--accent2); border: 1px solid rgba(168,151,255,0.25); }
+  .tag-freemium { background: rgba(245,200,66,0.1); color: var(--gold); border: 1px solid rgba(245,200,66,0.25); }
+  .card-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+  .open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(124,108,247,0.1);
+    border: 1px solid rgba(124,108,247,0.25);
+    border-radius: 7px;
+    padding: 5px 10px;
+    font-size: 11px;
+    color: var(--accent2);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.18s;
+    cursor: pointer;
+  }
+  .open-btn:hover {
+    background: rgba(124,108,247,0.2);
+    border-color: rgba(124,108,247,0.5);
+  }
+
+  /* SECTION COLORS */
+  .ic-chat { background: rgba(124,108,247,0.15); color: #a897ff; }
+  .ic-image { background: rgba(29,158,117,0.15); color: #3ecfa0; }
+  .ic-video { background: rgba(216,90,48,0.15); color: #f08060; }
+  .ic-audio { background: rgba(245,200,66,0.15); color: var(--gold); }
+  .ic-code { background: rgba(55,138,221,0.15); color: #7bbef0; }
+  .ic-research { background: rgba(212,83,126,0.15); color: #f090b0; }
+  .ic-productivity { background: rgba(99,153,34,0.15); color: #a0d060; }
+  .ic-3d { background: rgba(133,79,11,0.15); color: #e0a040; }
+  .ic-design { background: rgba(153,53,86,0.15); color: #f080a8; }
+  .ic-data { background: rgba(24,95,165,0.15); color: #60b0f0; }
+  .ic-marketing { background: rgba(255,120,60,0.15); color: #ff9060; }
+  .ic-agents { background: rgba(150,255,80,0.12); color: #a0e040; }
+  .ic-education { background: rgba(60,180,255,0.15); color: #70c8ff; }
+  .ic-writing { background: rgba(255,128,192,0.15); color: #ff80c0; }
+  .ic-healthcare { background: rgba(96,255,176,0.15); color: #60ffb0; }
+  .ic-legal { background: rgba(192,160,96,0.15); color: #c0a060; }
+  .ic-finance { background: rgba(64,224,160,0.15); color: #40e0a0; }
+  .ic-hr { background: rgba(255,144,144,0.15); color: #ff9090; }
+  .ic-sales { background: rgba(128,255,255,0.15); color: #80ffff; }
+  .ic-seo { background: rgba(255,160,64,0.15); color: #ffa040; }
+  .ic-social { background: rgba(192,128,255,0.15); color: #c080ff; }
+  .ic-customer { background: rgba(128,224,255,0.15); color: #80e0ff; }
+  .ic-security { background: rgba(255,96,96,0.15); color: #ff6060; }
+  .ic-translation { background: rgba(96,192,255,0.15); color: #60c0ff; }
+  .ic-presentation { background: rgba(255,176,96,0.15); color: #ffb060; }
+  .ic-avatar { background: rgba(224,96,255,0.15); color: #e060ff; }
+  .ic-voiceclone { background: rgba(255,96,160,0.15); color: #ff60a0; }
+  .ic-aidetect { background: rgba(160,160,160,0.15); color: #a0a0a0; }
+  .ic-prompt { background: rgba(255,255,96,0.12); color: #ffff60; }
+  .ic-realestate { background: rgba(64,192,160,0.15); color: #40c0a0; }
+  .ic-science { background: rgba(64,128,255,0.15); color: #4080ff; }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto 50px;
+    padding: 0 2rem;
+  }
+  .stat-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent2);
+  }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 2rem;
+    text-align: center;
+    color: var(--dim);
+    font-size: 12px;
+  }
+
+  /* HIDE/SHOW on search */
+  .ai-card.hidden { display: none; }
+  .section.empty .cards-grid { display: none; }
+  .section.empty .section-header::after {
+    content: 'No results';
+    font-size: 12px;
+    color: var(--dim);
+    margin-left: auto;
+  }
+
+  @media (max-width: 600px) {
+    .cards-grid { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 2rem; }
+    header { padding: 0 1rem; }
+    .main, .stats-bar { padding-left: 1rem; padding-right: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">AI <span>Universe</span></div>
+  <div class="header-count">550+ AI Tools</div>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">⚡ One Stop AI Directory</div>
+  <h1>Every AI tool,<br><em>one place.</em></h1>
+  <p>Curated directory of the best AI tools — organized by category with direct links.</p>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search AI tools..." oninput="filterTools(this.value)">
+  </div>
+</section>
+
+<nav class="cat-nav">
+  <a class="cat-btn" href="#chat"><span class="dot" style="background:#a897ff"></span>Chat & LLMs</a>
+  <a class="cat-btn" href="#image"><span class="dot" style="background:#3ecfa0"></span>Image Gen</a>
+  <a class="cat-btn" href="#video"><span class="dot" style="background:#f08060"></span>Video</a>
+  <a class="cat-btn" href="#audio"><span class="dot" style="background:#f5c842"></span>Audio & Music</a>
+  <a class="cat-btn" href="#code"><span class="dot" style="background:#7bbef0"></span>Coding</a>
+  <a class="cat-btn" href="#research"><span class="dot" style="background:#f090b0"></span>Research</a>
+  <a class="cat-btn" href="#productivity"><span class="dot" style="background:#a0d060"></span>Productivity</a>
+  <a class="cat-btn" href="#design"><span class="dot" style="background:#f080a8"></span>Design</a>
+  <a class="cat-btn" href="#data"><span class="dot" style="background:#60b0f0"></span>Data & Analytics</a>
+  <a class="cat-btn" href="#3d"><span class="dot" style="background:#e0a040"></span>3D & AR</a>
+  <a class="cat-btn" href="#marketing"><span class="dot" style="background:#ff9060"></span>Marketing</a>
+  <a class="cat-btn" href="#ai-agents"><span class="dot" style="background:#c0ff60"></span>AI Agents</a>
+  <a class="cat-btn" href="#education"><span class="dot" style="background:#80d0ff"></span>Education</a>
+  <a class="cat-btn" href="#writing"><span class="dot" style="background:#ff80c0"></span>Writing</a>
+  <a class="cat-btn" href="#healthcare"><span class="dot" style="background:#60ffb0"></span>Healthcare</a>
+  <a class="cat-btn" href="#legal"><span class="dot" style="background:#c0a060"></span>Legal</a>
+  <a class="cat-btn" href="#finance"><span class="dot" style="background:#40e0a0"></span>Finance</a>
+  <a class="cat-btn" href="#hr"><span class="dot" style="background:#ff9090"></span>HR & Recruiting</a>
+  <a class="cat-btn" href="#sales"><span class="dot" style="background:#80ffff"></span>Sales & CRM</a>
+  <a class="cat-btn" href="#seo"><span class="dot" style="background:#ffa040"></span>SEO</a>
+  <a class="cat-btn" href="#social"><span class="dot" style="background:#c080ff"></span>Social Media</a>
+  <a class="cat-btn" href="#customer"><span class="dot" style="background:#80e0ff"></span>Customer Support</a>
+  <a class="cat-btn" href="#security"><span class="dot" style="background:#ff6060"></span>Cybersecurity</a>
+  <a class="cat-btn" href="#translation"><span class="dot" style="background:#60c0ff"></span>Translation</a>
+  <a class="cat-btn" href="#presentation"><span class="dot" style="background:#ffb060"></span>Presentation</a>
+  <a class="cat-btn" href="#avatar"><span class="dot" style="background:#e060ff"></span>Avatar & Deepfake</a>
+  <a class="cat-btn" href="#voiceclone"><span class="dot" style="background:#ff60a0"></span>Voice Cloning</a>
+  <a class="cat-btn" href="#aidetect"><span class="dot" style="background:#a0a0a0"></span>AI Detection</a>
+  <a class="cat-btn" href="#prompt"><span class="dot" style="background:#ffff60"></span>Prompt Tools</a>
+  <a class="cat-btn" href="#realestate"><span class="dot" style="background:#40c0a0"></span>Real Estate</a>
+  <a class="cat-btn" href="#science"><span class="dot" style="background:#4080ff"></span>Science & Math</a>
+</nav>
+
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">550+</div><div class="stat-label">AI Tools</div></div>
+  <div class="stat-item"><div class="stat-num">31</div><div class="stat-label">Categories</div></div>
+  <div class="stat-item"><div class="stat-num">160+</div><div class="stat-label">Free Tools</div></div>
+  <div class="stat-item"><div class="stat-num">⭐ 65</div><div class="stat-label">Best Picks</div></div>
+</div>
+
+<main class="main" id="mainContent">
+
+  <!-- CHAT & LLMs -->
+  <section class="section" id="chat">
+    <div class="section-header">
+      <div class="section-icon ic-chat">💬</div>
+      <div>
+        <div class="section-title">Chat & Large Language Models</div>
+        <div class="section-sub">General purpose AI assistants & chatbots</div>
+      </div>
+      <div class="section-count">12 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://claude.ai" target="_blank">
+        <div class="best-badge">⭐ Best</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.15);color:#a897ff">C</div>
+          <div><div class="card-name">Claude</div><div class="card-maker">Anthropic</div></div>
+        </div>
+        <div class="card-desc">Most nuanced, thoughtful AI. Exceptional at writing, analysis, coding & reasoning. Safest & most reliable.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://chat.openai.com" target="_blank">
+        <div class="best-badge">⭐ Best</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.15);color:#3ecfa0">G</div>
+          <div><div class="card-name">ChatGPT</div><div class="card-maker">OpenAI</div></div>
+        </div>
+        <div class="card-desc">The pioneer. GPT-4o powers strong general tasks, image understanding, and broad plugin ecosystem.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://gemini.google.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.15);color:#7bbef0">G</div>
+          <div><div class="card-name">Gemini</div><div class="card-maker">Google</div></div>
+        </div>
+        <div class="card-desc">Google's flagship AI. Integrated with Google Workspace. Best for search-grounded answers.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://copilot.microsoft.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60a0e0">M</div>
+          <div><div class="card-name">Copilot</div><div class="card-maker">Microsoft</div></div>
+        </div>
+        <div class="card-desc">Powered by GPT-4. Great for Office integration, real-time web search, and enterprise use.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.meta.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#6090f0">M</div>
+          <div><div class="card-name">Meta AI</div><div class="card-maker">Meta</div></div>
+        </div>
+        <div class="card-desc">Llama-powered chatbot. Integrated into WhatsApp, Instagram, and Facebook.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://grok.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(255,255,255,0.07);color:#e0e0e0">G</div>
+          <div><div class="card-name">Grok</div><div class="card-maker">xAI</div></div>
+        </div>
+        <div class="card-desc">Elon Musk's AI with real-time X/Twitter data access and uncensored personality.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://chat.mistral.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f5c842">M</div>
+          <div><div class="card-name">Le Chat</div><div class="card-maker">Mistral AI</div></div>
+        </div>
+        <div class="card-desc">European AI powerhouse. Fast, multilingual, open-weight models. Privacy-focused.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://poe.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#c0a8ff">P</div>
+          <div><div class="card-name">Poe</div><div class="card-maker">Quora</div></div>
+        </div>
+        <div class="card-desc">Access Claude, GPT-4, Gemini & more in one app. Best multi-model platform.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://groq.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f5c842">G</div>
+          <div><div class="card-name">Groq</div><div class="card-maker">Groq Inc</div></div>
+        </div>
+        <div class="card-desc">World's fastest AI inference. Ultra-low latency chat with open source models like Llama & Mixtral.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://you.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#3ecfa0">Y</div>
+          <div><div class="card-name">You.com</div><div class="card-maker">You.com</div></div>
+        </div>
+        <div class="card-desc">AI search engine + chat. Combines web search results with AI responses in real time.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://huggingface.co/chat" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f5c842">🤗</div>
+          <div><div class="card-name">HuggingChat</div><div class="card-maker">HuggingFace</div></div>
+        </div>
+        <div class="card-desc">Free, open-source AI chat. Runs the best open models. No login needed.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.perplexity.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">P</div>
+          <div><div class="card-name">Perplexity</div><div class="card-maker">Perplexity AI</div></div>
+        </div>
+        <div class="card-desc">AI-powered answer engine. Real-time web search with cited sources. Research superpower.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.deepseek.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#5090e0">D</div>
+          <div><div class="card-name">DeepSeek</div><div class="card-maker">DeepSeek AI</div></div>
+        </div>
+        <div class="card-desc">Chinese open-source powerhouse. R1 reasoning model rivals o1. Free to use with exceptional performance.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.cohere.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">C</div>
+          <div><div class="card-name">Command R+</div><div class="card-maker">Cohere</div></div>
+        </div>
+        <div class="card-desc">Enterprise-grade RAG and grounded generation. Best for building business AI with real data sources.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.nvidia.com/en-us/ai/" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(118,185,0,0.12);color:#80cc00">N</div>
+          <div><div class="card-name">NVIDIA NIM</div><div class="card-maker">NVIDIA</div></div>
+        </div>
+        <div class="card-desc">Run top open models (Llama, Mistral, Gemma) via NVIDIA's optimized inference cloud. API access.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://ollama.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(255,255,255,0.07);color:#c0c0d0">O</div>
+          <div><div class="card-name">Ollama</div><div class="card-maker">Ollama</div></div>
+        </div>
+        <div class="card-desc">Run LLMs locally on your machine. Llama, Mistral, Gemma, Phi and more — completely private and offline.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://pi.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0ff">π</div>
+          <div><div class="card-name">Pi</div><div class="card-maker">Inflection AI</div></div>
+        </div>
+        <div class="card-desc">Personal AI with emotional intelligence. Warm, empathetic conversation for support, coaching, and chat.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.phind.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#70b0f0">P</div>
+          <div><div class="card-name">Phind</div><div class="card-maker">Phind</div></div>
+        </div>
+        <div class="card-desc">AI search engine for developers. Code-focused answers with real-time web search and technical depth.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://lmarena.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0c030">⚔</div>
+          <div><div class="card-name">LM Arena</div><div class="card-maker">LMSYS / UC Berkeley</div></div>
+        </div>
+        <div class="card-desc">Compare AI models head-to-head. Blind rankings from millions of human votes. Free access to many models.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.together.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f080b0">T</div>
+          <div><div class="card-name">Together AI</div><div class="card-maker">Together</div></div>
+        </div>
+        <div class="card-desc">Fast inference cloud for open-source models. Llama, Mixtral, FLUX and more. Cheapest API for open models.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://openrouter.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0ff">O</div>
+          <div><div class="card-name">OpenRouter</div><div class="card-maker">OpenRouter</div></div>
+        </div>
+        <div class="card-desc">Single API for 200+ models: GPT, Claude, Gemini, Llama and more. Auto-routes to cheapest/fastest provider.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.character.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(99,153,34,0.12);color:#a0d060">C</div>
+          <div><div class="card-name">Character.AI</div><div class="card-maker">Character.AI</div></div>
+        </div>
+        <div class="card-desc">Chat with AI characters: celebrities, anime, historical figures and custom personas. 20M+ daily users.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.cerebras.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,120,60,0.12);color:#ff8840">C</div>
+          <div><div class="card-name">Cerebras</div><div class="card-maker">Cerebras Systems</div></div>
+        </div>
+        <div class="card-desc">World's fastest AI inference chip. Runs Llama at 2000+ tokens/sec. Free API with blazing speed.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- IMAGE GENERATION -->
+  <section class="section" id="image">
+    <div class="section-header">
+      <div class="section-icon ic-image">🎨</div>
+      <div>
+        <div class="section-title">Image Generation</div>
+        <div class="section-sub">Text-to-image, editing & visual AI</div>
+      </div>
+      <div class="section-count">12 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://www.midjourney.com" target="_blank">
+        <div class="best-badge">⭐ Best Quality</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.15);color:#3ecfa0">M</div>
+          <div><div class="card-name">Midjourney</div><div class="card-maker">Midjourney</div></div>
+        </div>
+        <div class="card-desc">Industry leader in aesthetic quality. Unmatched artistic style. Used by professional artists worldwide.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://openai.com/dall-e-3" target="_blank">
+        <div class="best-badge">⭐ Best Realism</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40d090">D</div>
+          <div><div class="card-name">DALL·E 3</div><div class="card-maker">OpenAI</div></div>
+        </div>
+        <div class="card-desc">Best for prompt adherence and photo-realism. Built into ChatGPT. Exceptional text rendering in images.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://stability.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#a897ff">S</div>
+          <div><div class="card-name">Stable Diffusion</div><div class="card-maker">Stability AI</div></div>
+        </div>
+        <div class="card-desc">Open-source powerhouse. Run locally. Infinite customization with LoRAs and plugins.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://ideogram.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">I</div>
+          <div><div class="card-name">Ideogram</div><div class="card-maker">Ideogram</div></div>
+        </div>
+        <div class="card-desc">Best AI for text inside images. Logos, posters, and typography — flawlessly rendered.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://firefly.adobe.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">F</div>
+          <div><div class="card-name">Adobe Firefly</div><div class="card-maker">Adobe</div></div>
+        </div>
+        <div class="card-desc">Commercially safe AI. Integrated with Photoshop & Illustrator. Best for professional design workflows.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://leonardo.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f5c842">L</div>
+          <div><div class="card-name">Leonardo.ai</div><div class="card-maker">Leonardo</div></div>
+        </div>
+        <div class="card-desc">Game-focused art generation. Character design, textures, and consistent style. Generous free tier.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://playground.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#c0a8ff">P</div>
+          <div><div class="card-name">Playground AI</div><div class="card-maker">Playground</div></div>
+        </div>
+        <div class="card-desc">Design-focused image generation. Real-time canvas editing and photo manipulation. Generous free plan.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.bing.com/images/create" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">B</div>
+          <div><div class="card-name">Bing Image Creator</div><div class="card-maker">Microsoft</div></div>
+        </div>
+        <div class="card-desc">Free DALL·E 3 via Microsoft. No subscription needed. Fast and high quality. Best free option.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.canva.com/ai-image-generator" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60c0f0">C</div>
+          <div><div class="card-name">Canva AI</div><div class="card-maker">Canva</div></div>
+        </div>
+        <div class="card-desc">AI image gen inside Canva's design tools. Great for social media, presentations, and marketing.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://creator.nightcafe.studio" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0b040">N</div>
+          <div><div class="card-name">NightCafe</div><div class="card-maker">NightCafe</div></div>
+        </div>
+        <div class="card-desc">Multiple AI engines in one. Community-driven art platform with daily free credits.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.adobe.com/products/photoshop/generative-fill.html" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#4090e0">PS</div>
+          <div><div class="card-name">Photoshop AI</div><div class="card-maker">Adobe</div></div>
+        </div>
+        <div class="card-desc">Generative Fill, Expand & Remove. Best AI photo editing integration in any professional tool.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://flux.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0ff">F</div>
+          <div><div class="card-name">Flux</div><div class="card-maker">Black Forest Labs</div></div>
+        </div>
+        <div class="card-desc">State-of-the-art open model. Exceptional realism and detail. Rapidly becoming the new standard.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://www.recraft.ai" target="_blank">
+        <div class="best-badge">⭐ Best Vector</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">R</div>
+          <div><div class="card-name">Recraft</div><div class="card-maker">Recraft</div></div>
+        </div>
+        <div class="card-desc">Generate vector illustrations, icons, and brand graphics with AI. Consistent style across image sets. Top-ranked.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.getimg.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">G</div>
+          <div><div class="card-name">getimg.ai</div><div class="card-maker">getimg</div></div>
+        </div>
+        <div class="card-desc">All-in-one image generation. 60+ AI models, inpainting, outpainting, face restoration. API available.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.krea.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0b030">K</div>
+          <div><div class="card-name">Krea AI</div><div class="card-maker">Krea</div></div>
+        </div>
+        <div class="card-desc">Real-time AI image generation. Draw sketches and see them rendered live. Powerful enhancement tools.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.pika.art/dream-machine" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#c0a0ff">I</div>
+          <div><div class="card-name">Imagen 3</div><div class="card-maker">Google DeepMind</div></div>
+        </div>
+        <div class="card-desc">Google's highest quality image model. Exceptional photorealism, text rendering, and instruction following.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://openai.com/sora" target="_blank">
+        <div class="best-badge">⭐ Best New</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.15);color:#3ecfa0">G</div>
+          <div><div class="card-name">gpt-image-1</div><div class="card-maker">OpenAI</div></div>
+        </div>
+        <div class="card-desc">OpenAI's next-gen image model. Native image editing, precise instruction following, and world-class quality.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.ideogram.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f5c842">I</div>
+          <div><div class="card-name">Ideogram</div><div class="card-maker">Ideogram AI</div></div>
+        </div>
+        <div class="card-desc">Best for text rendering in images. Stunning typography-first designs, logos, and typographic art.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://fal.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">F</div>
+          <div><div class="card-name">fal.ai</div><div class="card-maker">fal</div></div>
+        </div>
+        <div class="card-desc">Fastest image generation API. FLUX, SD3, LoRA fine-tuning. Seconds per image. Developer-first platform.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.recraft.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#70b0f0">R</div>
+          <div><div class="card-name">Recraft</div><div class="card-maker">Recraft AI</div></div>
+        </div>
+        <div class="card-desc">Professional vector and raster image AI. Consistent brand style, SVG export, and design system support.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="section" id="video">
+    <div class="section-header">
+      <div class="section-icon ic-video">🎬</div>
+      <div>
+        <div class="section-title">Video Generation & Editing</div>
+        <div class="section-sub">Text-to-video, AI video editing & enhancement</div>
+      </div>
+      <div class="section-count">10 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://sora.openai.com" target="_blank">
+        <div class="best-badge">⭐ Best</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.15);color:#3ecfa0">S</div>
+          <div><div class="card-name">Sora</div><div class="card-maker">OpenAI</div></div>
+        </div>
+        <div class="card-desc">OpenAI's breakthrough video model. Cinematic, physics-aware, long-form video generation up to 1 min.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://runwayml.com" target="_blank">
+        <div class="best-badge">⭐ Best Editor</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">R</div>
+          <div><div class="card-name">Runway ML</div><div class="card-maker">Runway</div></div>
+        </div>
+        <div class="card-desc">Gen-3 Alpha. Industry-standard for creative professionals. Text-to-video, inpainting, motion controls.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://pika.art" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#c0a0ff">P</div>
+          <div><div class="card-name">Pika Labs</div><div class="card-maker">Pika</div></div>
+        </div>
+        <div class="card-desc">Viral AI video creation. Animate images, text-to-video, aspect ratio controls. Great for social content.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.synthesia.io" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">S</div>
+          <div><div class="card-name">Synthesia</div><div class="card-maker">Synthesia</div></div>
+        </div>
+        <div class="card-desc">AI avatar video creation. 140+ languages. Best for training videos, corporate content without cameras.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://luma.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f5c842">L</div>
+          <div><div class="card-name">Luma Dream Machine</div><div class="card-maker">Luma AI</div></div>
+        </div>
+        <div class="card-desc">Smooth, cinematic AI video. Exceptional motion quality and temporal consistency. Free credits daily.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://klingai.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#e07060">K</div>
+          <div><div class="card-name">Kling AI</div><div class="card-maker">Kuaishou</div></div>
+        </div>
+        <div class="card-desc">Chinese competitor to Sora. Highly realistic physics and movement. 2-min videos. Often free access.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://invideo.io/ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">I</div>
+          <div><div class="card-name">InVideo AI</div><div class="card-maker">InVideo</div></div>
+        </div>
+        <div class="card-desc">Text-to-video with voiceover, stock footage & music. Best for YouTube and social media automation.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.heygen.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b090f0">H</div>
+          <div><div class="card-name">HeyGen</div><div class="card-maker">HeyGen</div></div>
+        </div>
+        <div class="card-desc">AI avatar & video translation. Lip-sync in 40+ languages. Best for content localization.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://descript.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#e0a030">D</div>
+          <div><div class="card-name">Descript</div><div class="card-maker">Descript</div></div>
+        </div>
+        <div class="card-desc">Edit video by editing text transcript. Remove filler words, overdub voices. Podcast-to-video powerhouse.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://pictory.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#5090e0">P</div>
+          <div><div class="card-name">Pictory</div><div class="card-maker">Pictory AI</div></div>
+        </div>
+        <div class="card-desc">Convert blogs and scripts into video automatically. Best for content repurposing at scale.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://www.veo.google" target="_blank">
+        <div class="best-badge">⭐ Best Google</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.15);color:#60b0f0">V</div>
+          <div><div class="card-name">Veo 3</div><div class="card-maker">Google DeepMind</div></div>
+        </div>
+        <div class="card-desc">Google's state-of-the-art video model. Generates realistic video with native audio. Cinematic quality output.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://hailuoai.video" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0b030">H</div>
+          <div><div class="card-name">Hailuo AI</div><div class="card-maker">MiniMax</div></div>
+        </div>
+        <div class="card-desc">MiniMax video model. High quality, fast generation. Strong character consistency and motion quality.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.wan.video" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0ff">W</div>
+          <div><div class="card-name">Wan 2.1</div><div class="card-maker">Alibaba</div></div>
+        </div>
+        <div class="card-desc">Open-source video generation from Alibaba. Excellent text-to-video and image-to-video. Free to run locally.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.captions.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f080b0">C</div>
+          <div><div class="card-name">Captions AI</div><div class="card-maker">Captions</div></div>
+        </div>
+        <div class="card-desc">AI video editor with auto-captions, eye contact correction, B-roll, and creator tools. Viral-ready content.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.opus.pro" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">O</div>
+          <div><div class="card-name">Opus Clip</div><div class="card-maker">Opus</div></div>
+        </div>
+        <div class="card-desc">AI repurposes long videos into viral short clips. Auto-finds hooks, adds captions, reframes for TikTok/Reels.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- AUDIO & MUSIC -->
+  <section class="section" id="audio">
+    <div class="section-header">
+      <div class="section-icon ic-audio">🎵</div>
+      <div>
+        <div class="section-title">Audio, Voice & Music</div>
+        <div class="section-sub">AI music generation, voice cloning & speech synthesis</div>
+      </div>
+      <div class="section-count">10 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://suno.ai" target="_blank">
+        <div class="best-badge">⭐ Best Music</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.15);color:#f5c842">S</div>
+          <div><div class="card-name">Suno</div><div class="card-maker">Suno AI</div></div>
+        </div>
+        <div class="card-desc">Create full songs with vocals in any genre from text. Studio quality in seconds. Revolutionary music AI.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://elevenlabs.io" target="_blank">
+        <div class="best-badge">⭐ Best Voice</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#e0b030">E</div>
+          <div><div class="card-name">ElevenLabs</div><div class="card-maker">ElevenLabs</div></div>
+        </div>
+        <div class="card-desc">Best-in-class voice cloning and text-to-speech. Ultra-realistic, 29 languages. Industry standard for TTS.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.udio.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b8a0ff">U</div>
+          <div><div class="card-name">Udio</div><div class="card-maker">Udio</div></div>
+        </div>
+        <div class="card-desc">Suno competitor. Exceptional instrument separation and music detail. Best for instrumental and complex arrangements.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.mubert.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#3ecfa0">M</div>
+          <div><div class="card-name">Mubert</div><div class="card-maker">Mubert</div></div>
+        </div>
+        <div class="card-desc">Royalty-free AI music for content creators. Generate background tracks by mood, genre, and duration.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://openai.com/research/whisper" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40d090">W</div>
+          <div><div class="card-name">Whisper</div><div class="card-maker">OpenAI</div></div>
+        </div>
+        <div class="card-desc">Best-in-class speech-to-text. 99 languages, near-human accuracy. Open source and free to use.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.adobe.com/products/podcast.html" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">A</div>
+          <div><div class="card-name">Adobe Podcast</div><div class="card-maker">Adobe</div></div>
+        </div>
+        <div class="card-desc">AI audio enhancement — remove background noise, improve voice quality instantly. Best for podcasters.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://soundraw.io" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0b030">S</div>
+          <div><div class="card-name">Soundraw</div><div class="card-maker">Soundraw</div></div>
+        </div>
+        <div class="card-desc">AI music composer. Create and customize royalty-free tracks. Perfect for video creators and games.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.resemble.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">R</div>
+          <div><div class="card-name">Resemble AI</div><div class="card-maker">Resemble</div></div>
+        </div>
+        <div class="card-desc">Enterprise voice cloning. Emotional voices, real-time synthesis, localization. Built for production apps.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://boomy.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#c0a0ff">B</div>
+          <div><div class="card-name">Boomy</div><div class="card-maker">Boomy</div></div>
+        </div>
+        <div class="card-desc">Make original songs in seconds and submit to streaming platforms. Earn royalties from your AI music.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.aiva.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#50d080">A</div>
+          <div><div class="card-name">AIVA</div><div class="card-maker">AIVA Technologies</div></div>
+        </div>
+        <div class="card-desc">Legally registered AI composer. Classical and cinematic compositions. Used in films and games.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.lalal.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#c0a0ff">L</div>
+          <div><div class="card-name">LALAL.AI</div><div class="card-maker">LALAL.AI</div></div>
+        </div>
+        <div class="card-desc">AI vocal and instrument splitter. Separate vocals, drums, bass from any track. Best stem extraction tool.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.assemblyai.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">A</div>
+          <div><div class="card-name">AssemblyAI</div><div class="card-maker">AssemblyAI</div></div>
+        </div>
+        <div class="card-desc">Developer API for speech-to-text, speaker diarization, sentiment analysis, and audio intelligence.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.loudly.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0b030">L</div>
+          <div><div class="card-name">Loudly</div><div class="card-maker">Loudly</div></div>
+        </div>
+        <div class="card-desc">AI music generator for content creators. 170,000+ tracks, genre-specific stems, and royalty-free licensing.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CODING -->
+  <section class="section" id="code">
+    <div class="section-header">
+      <div class="section-icon ic-code">💻</div>
+      <div>
+        <div class="section-title">Coding & Development</div>
+        <div class="section-sub">AI code assistants, debuggers & developer tools</div>
+      </div>
+      <div class="section-count">10 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://github.com/features/copilot" target="_blank">
+        <div class="best-badge">⭐ Best Overall</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(255,255,255,0.07);color:#e0e0e0">G</div>
+          <div><div class="card-name">GitHub Copilot</div><div class="card-maker">Microsoft/GitHub</div></div>
+        </div>
+        <div class="card-desc">World's most used AI code assistant. Inline completions, chat, PR reviews. Integrates with all IDEs.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://cursor.sh" target="_blank">
+        <div class="best-badge">⭐ Best AI IDE</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#7bbef0">C</div>
+          <div><div class="card-name">Cursor</div><div class="card-maker">Anysphere</div></div>
+        </div>
+        <div class="card-desc">The AI-native IDE. Edit entire codebases with natural language. Best for AI-first developers.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://codeium.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#3ecfa0">C</div>
+          <div><div class="card-name">Codeium</div><div class="card-maker">Codeium</div></div>
+        </div>
+        <div class="card-desc">Free AI code completion for 70+ languages. No usage limits. Best free Copilot alternative.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://replit.com/ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">R</div>
+          <div><div class="card-name">Replit Ghostwriter</div><div class="card-maker">Replit</div></div>
+        </div>
+        <div class="card-desc">AI coding in the browser. Explain, refactor, generate. Best for beginners and quick prototyping.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.tabnine.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0f0">T</div>
+          <div><div class="card-name">Tabnine</div><div class="card-maker">Tabnine</div></div>
+        </div>
+        <div class="card-desc">Privacy-first AI coding assistant. Runs locally. Enterprise-ready with your codebase context.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.codium.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0b030">C</div>
+          <div><div class="card-name">CodiumAI</div><div class="card-maker">CodiumAI</div></div>
+        </div>
+        <div class="card-desc">AI-powered code testing. Auto-generate unit tests. Find bugs before they ship. Developer favorite.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://v0.dev" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(255,255,255,0.07);color:#e0e0e0">v0</div>
+          <div><div class="card-name">v0 by Vercel</div><div class="card-maker">Vercel</div></div>
+        </div>
+        <div class="card-desc">Generate React UI components from text. Best for frontend developers — instant beautiful components.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://bolt.new" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f5c842">⚡</div>
+          <div><div class="card-name">Bolt.new</div><div class="card-maker">StackBlitz</div></div>
+        </div>
+        <div class="card-desc">Build full-stack apps from a prompt. Runs in browser, deploys instantly. No-code to code bridge.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.deepseek.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#5090e0">D</div>
+          <div><div class="card-name">DeepSeek Coder</div><div class="card-maker">DeepSeek</div></div>
+        </div>
+        <div class="card-desc">Open-source coding model rivaling GPT-4. Exceptional at math, algorithms, and competitive programming.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://sourcegraph.com/cody" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#c0a0ff">C</div>
+          <div><div class="card-name">Cody</div><div class="card-maker">Sourcegraph</div></div>
+        </div>
+        <div class="card-desc">AI that understands your entire codebase. Best for large enterprise codebases with deep context.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://www.lovable.dev" target="_blank">
+        <div class="best-badge">⭐ Best App Builder</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.15);color:#f080b0">L</div>
+          <div><div class="card-name">Lovable</div><div class="card-maker">Lovable</div></div>
+        </div>
+        <div class="card-desc">Build full-stack web apps with AI in minutes. React + Supabase, deploy instantly. No coding required.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://replit.com/ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0a030">R</div>
+          <div><div class="card-name">Replit AI</div><div class="card-maker">Replit</div></div>
+        </div>
+        <div class="card-desc">Code, run, and deploy in browser with AI. Multiplayer coding, AI autocomplete, and instant hosting.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.augmentcode.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">A</div>
+          <div><div class="card-name">Augment Code</div><div class="card-maker">Augment</div></div>
+        </div>
+        <div class="card-desc">Enterprise AI coding assistant with unlimited context. Understands your entire repo. Best for large teams.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.qodo.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">Q</div>
+          <div><div class="card-name">Qodo</div><div class="card-maker">Qodo</div></div>
+        </div>
+        <div class="card-desc">AI code testing and review. Auto-generates unit tests, code review, and pull request analysis.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.codeium.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#a897ff">W</div>
+          <div><div class="card-name">Windsurf</div><div class="card-maker">Codeium</div></div>
+        </div>
+        <div class="card-desc">Agentic IDE with AI flows. Cascade agent completes multi-step coding tasks autonomously. Free tier available.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://claude.ai/code" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.15);color:#a897ff">C</div>
+          <div><div class="card-name">Claude Code</div><div class="card-maker">Anthropic</div></div>
+        </div>
+        <div class="card-desc">Terminal-native AI coding agent. Reads codebases, writes code, runs tests, and commits — all from your CLI.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://aider.chat" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#50d080">A</div>
+          <div><div class="card-name">Aider</div><div class="card-maker">Aider AI</div></div>
+        </div>
+        <div class="card-desc">Open-source AI pair programmer in terminal. Works with GPT-4, Claude, Gemini. Top SWE-bench score.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.factory.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">F</div>
+          <div><div class="card-name">Factory AI</div><div class="card-maker">Factory</div></div>
+        </div>
+        <div class="card-desc">AI software engineers (Droids) that autonomously fix bugs, write features and handle pull requests end-to-end.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.swebench.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f5c842">S</div>
+          <div><div class="card-name">SWE-agent</div><div class="card-maker">Princeton NLP</div></div>
+        </div>
+        <div class="card-desc">Open-source autonomous software engineering agent. Fixes GitHub issues automatically. Research-grade tool.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section class="section" id="research">
+    <div class="section-header">
+      <div class="section-icon ic-research">🔬</div>
+      <div>
+        <div class="section-title">Research & Knowledge</div>
+        <div class="section-sub">AI research assistants, summarizers & knowledge tools</div>
+      </div>
+      <div class="section-count">8 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://www.perplexity.ai" target="_blank">
+        <div class="best-badge">⭐ Best Research</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f090b0">P</div>
+          <div><div class="card-name">Perplexity AI</div><div class="card-maker">Perplexity</div></div>
+        </div>
+        <div class="card-desc">The Google killer. Real-time web search with AI synthesis. Cited sources, deep research mode, file upload.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://elicit.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#e080a0">E</div>
+          <div><div class="card-name">Elicit</div><div class="card-maker">Ought</div></div>
+        </div>
+        <div class="card-desc">AI research assistant for academic papers. Find studies, extract data, synthesize literature. Built for scientists.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.semanticscholar.org" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">S</div>
+          <div><div class="card-name">Semantic Scholar</div><div class="card-maker">Allen Institute</div></div>
+        </div>
+        <div class="card-desc">Free AI-powered academic search. 200M+ papers, citation graphs, paper summaries. Research gold mine.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://consensus.app" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">C</div>
+          <div><div class="card-name">Consensus</div><div class="card-maker">Consensus</div></div>
+        </div>
+        <div class="card-desc">Search scientific research and get AI-synthesized answers. Shows what the evidence says, not just links.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://notebooklm.google.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#5090e0">N</div>
+          <div><div class="card-name">NotebookLM</div><div class="card-maker">Google</div></div>
+        </div>
+        <div class="card-desc">AI research assistant grounded in YOUR documents. Summarize, ask questions, generate podcast from papers.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://scholarai.io" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#e080a0">S</div>
+          <div><div class="card-name">ScholarAI</div><div class="card-maker">ScholarAI</div></div>
+        </div>
+        <div class="card-desc">Search peer-reviewed papers from 40M+ articles. PDF analysis and citation generation. Built for academia.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://typeset.io" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#e0a030">T</div>
+          <div><div class="card-name">SciSpace</div><div class="card-maker">Typeset.io</div></div>
+        </div>
+        <div class="card-desc">Chat with research papers. Explain complex jargon, compare studies, generate literature reviews.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.researchrabbit.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f080b0">R</div>
+          <div><div class="card-name">Research Rabbit</div><div class="card-maker">ResearchRabbit</div></div>
+        </div>
+        <div class="card-desc">Spotify for research papers. Discover related papers visually, track new publications. Always free.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PRODUCTIVITY -->
+  <section class="section" id="productivity">
+    <div class="section-header">
+      <div class="section-icon ic-productivity">⚡</div>
+      <div>
+        <div class="section-title">Productivity & Writing</div>
+        <div class="section-sub">AI writing, summarization, automation & workflow tools</div>
+      </div>
+      <div class="section-count">10 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://www.notion.so/product/ai" target="_blank">
+        <div class="best-badge">⭐ Best Notes AI</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(255,255,255,0.07);color:#d0d0d0">N</div>
+          <div><div class="card-name">Notion AI</div><div class="card-maker">Notion</div></div>
+        </div>
+        <div class="card-desc">Write, summarize, brainstorm inside your workspace. Best AI integration in a note-taking and wiki tool.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://www.jasper.ai" target="_blank">
+        <div class="best-badge">⭐ Best Marketing</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0f0">J</div>
+          <div><div class="card-name">Jasper</div><div class="card-maker">Jasper AI</div></div>
+        </div>
+        <div class="card-desc">Marketing AI powerhouse. Brand voice, campaigns, long-form content, SEO. Used by 100K+ brands.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://otter.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40d090">O</div>
+          <div><div class="card-name">Otter.ai</div><div class="card-maker">Otter AI</div></div>
+        </div>
+        <div class="card-desc">AI meeting transcription. Live transcripts, summaries, action items. Integrates with Zoom & Google Meet.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.grammarly.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#3ecfa0">G</div>
+          <div><div class="card-name">Grammarly</div><div class="card-maker">Grammarly</div></div>
+        </div>
+        <div class="card-desc">AI writing assistant. Grammar, style, tone, plagiarism. Works everywhere on the web. 30M users.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://zapier.com/ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">Z</div>
+          <div><div class="card-name">Zapier AI</div><div class="card-maker">Zapier</div></div>
+        </div>
+        <div class="card-desc">Build AI-powered automations across 6000+ apps. No-code workflow automation with AI brains.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.copy.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#c0a0ff">C</div>
+          <div><div class="card-name">Copy.ai</div><div class="card-maker">Copy.ai</div></div>
+        </div>
+        <div class="card-desc">AI for sales and marketing copy. Emails, ads, product descriptions, social posts. Fast and reliable.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://fireflies.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">F</div>
+          <div><div class="card-name">Fireflies.ai</div><div class="card-maker">Fireflies</div></div>
+        </div>
+        <div class="card-desc">AI notetaker for meetings. Automatic transcription, summaries, searchable call database.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://mem.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">M</div>
+          <div><div class="card-name">Mem.ai</div><div class="card-maker">Mem</div></div>
+        </div>
+        <div class="card-desc">AI-powered workspace that organizes itself. Find anything you've ever written or saved. Second brain.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.wordtune.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">W</div>
+          <div><div class="card-name">Wordtune</div><div class="card-maker">AI21 Labs</div></div>
+        </div>
+        <div class="card-desc">AI writing companion. Rewrite, shorten, expand, change tone. Best for improving existing writing.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.beautiful.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f090b0">B</div>
+          <div><div class="card-name">Beautiful.ai</div><div class="card-maker">Beautiful.ai</div></div>
+        </div>
+        <div class="card-desc">AI presentation builder. Smart slide templates that design themselves. Stunning decks in minutes.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- DESIGN -->
+  <section class="section" id="design">
+    <div class="section-header">
+      <div class="section-icon ic-design">✏️</div>
+      <div>
+        <div class="section-title">Design & Creative</div>
+        <div class="section-sub">UI/UX design, branding, and visual creative tools</div>
+      </div>
+      <div class="section-count">8 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://www.figma.com/ai" target="_blank">
+        <div class="best-badge">⭐ Best Design AI</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f090b0">F</div>
+          <div><div class="card-name">Figma AI</div><div class="card-maker">Figma</div></div>
+        </div>
+        <div class="card-desc">AI features inside the world's best design tool. Generate UI, rename layers, auto-layout, prototype AI.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.looka.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0b030">L</div>
+          <div><div class="card-name">Looka</div><div class="card-maker">Looka</div></div>
+        </div>
+        <div class="card-desc">AI logo maker and brand identity. Generate complete brand kits — logos, fonts, colors, business cards.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.framer.com/ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">F</div>
+          <div><div class="card-name">Framer AI</div><div class="card-maker">Framer</div></div>
+        </div>
+        <div class="card-desc">Generate full websites from text prompts. Beautiful, responsive, and ready to publish in seconds.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.remove.bg" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">R</div>
+          <div><div class="card-name">Remove.bg</div><div class="card-maker">Kaleido</div></div>
+        </div>
+        <div class="card-desc">AI background removal in one click. Near-perfect on hair, fur, and complex edges. 100% automatic.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://khroma.co" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#c0a0ff">K</div>
+          <div><div class="card-name">Khroma</div><div class="card-maker">Khroma</div></div>
+        </div>
+        <div class="card-desc">AI color palette generator trained on your preferences. Discover, search, and save infinite palettes.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.magician.design" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f080b0">M</div>
+          <div><div class="card-name">Magician</div><div class="card-maker">Diagram</div></div>
+        </div>
+        <div class="card-desc">AI design tool for Figma. Generate icons, images, and text right inside your design file.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://designs.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">D</div>
+          <div><div class="card-name">Designs.ai</div><div class="card-maker">Designs.ai</div></div>
+        </div>
+        <div class="card-desc">All-in-one AI creative platform. Logos, videos, mockups, social media content. Complete creative suite.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.uizard.io" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#70b0f0">U</div>
+          <div><div class="card-name">Uizard</div><div class="card-maker">Uizard</div></div>
+        </div>
+        <div class="card-desc">Transform sketches and wireframes into UI designs. AI-generated mobile and web app prototypes.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- DATA & ANALYTICS -->
+  <section class="section" id="data">
+    <div class="section-header">
+      <div class="section-icon ic-data">📊</div>
+      <div>
+        <div class="section-title">Data & Analytics</div>
+        <div class="section-sub">AI for data analysis, BI, and insights</div>
+      </div>
+      <div class="section-count">6 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://julius.ai" target="_blank">
+        <div class="best-badge">⭐ Best Data AI</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(24,95,165,0.15);color:#60b0f0">J</div>
+          <div><div class="card-name">Julius AI</div><div class="card-maker">Julius</div></div>
+        </div>
+        <div class="card-desc">Chat with your data. Upload CSV, Excel, databases — get instant analysis, charts, and insights in plain English.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.tableau.com/solutions/ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(24,95,165,0.12);color:#50a0e0">T</div>
+          <div><div class="card-name">Tableau AI</div><div class="card-maker">Salesforce</div></div>
+        </div>
+        <div class="card-desc">AI-powered BI. Ask data questions in English, get automatic visualizations. Enterprise analytics leader.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.microsoft.com/en-us/power-bi" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f5a020">P</div>
+          <div><div class="card-name">Power BI AI</div><div class="card-maker">Microsoft</div></div>
+        </div>
+        <div class="card-desc">Natural language queries for business data. Copilot inside Power BI for automated reporting and insights.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.pecan.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">P</div>
+          <div><div class="card-name">Pecan AI</div><div class="card-maker">Pecan</div></div>
+        </div>
+        <div class="card-desc">Predictive analytics without data science. Business users can build forecasting models without code.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.obviously.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(24,95,165,0.12);color:#5090e0">O</div>
+          <div><div class="card-name">Obviously AI</div><div class="card-maker">Obviously AI</div></div>
+        </div>
+        <div class="card-desc">No-code ML predictions. Upload data and get churn, revenue, and outcome predictions in minutes.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://chat2db.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">C</div>
+          <div><div class="card-name">Chat2DB</div><div class="card-maker">Chat2DB</div></div>
+        </div>
+        <div class="card-desc">Talk to your SQL database in plain English. Write complex queries, get reports, analyze schemas instantly.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- 3D & AR -->
+  <section class="section" id="3d">
+    <div class="section-header">
+      <div class="section-icon ic-3d">🌐</div>
+      <div>
+        <div class="section-title">3D, AR & Spatial</div>
+        <div class="section-sub">AI 3D generation, augmented reality & spatial computing</div>
+      </div>
+      <div class="section-count">6 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://luma.ai" target="_blank">
+        <div class="best-badge">⭐ Best 3D</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(133,79,11,0.15);color:#e0a040">L</div>
+          <div><div class="card-name">Luma AI NeRF</div><div class="card-maker">Luma AI</div></div>
+        </div>
+        <div class="card-desc">Capture photorealistic 3D from iPhone video. Neural Radiance Fields for VFX, AR, and product visualization.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.meshy.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(133,79,11,0.12);color:#d09030">M</div>
+          <div><div class="card-name">Meshy</div><div class="card-maker">Meshy</div></div>
+        </div>
+        <div class="card-desc">Text to 3D model in seconds. Generate game assets, product models, and characters. Export to any format.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://spline.design/ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">S</div>
+          <div><div class="card-name">Spline AI</div><div class="card-maker">Spline</div></div>
+        </div>
+        <div class="card-desc">Generate 3D scenes from prompts in a browser-based tool. Best for web 3D and interactive experiences.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.kaedim3d.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0f0">K</div>
+          <div><div class="card-name">Kaedim</div><div class="card-maker">Kaedim</div></div>
+        </div>
+        <div class="card-desc">2D concept art to game-ready 3D model. Low-poly, textured, and optimized. Built for game studios.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://skybox.blockadelabs.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">S</div>
+          <div><div class="card-name">Skybox AI</div><div class="card-maker">Blockade Labs</div></div>
+        </div>
+        <div class="card-desc">Generate 360° panoramic environments from text. Perfect for VR, game worlds, and metaverse experiences.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.alpha3d.io" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(133,79,11,0.12);color:#d09030">A</div>
+          <div><div class="card-name">Alpha3D</div><div class="card-maker">Alpha3D</div></div>
+        </div>
+        <div class="card-desc">Photo to 3D product model. Upload product photos, get AR-ready 3D assets for e-commerce and retail.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- MARKETING & SEO -->
+  <section class="section" id="marketing">
+    <div class="section-header">
+      <div class="section-icon ic-marketing">📣</div>
+      <div>
+        <div class="section-title">Marketing, SEO & Copywriting</div>
+        <div class="section-sub">AI for ads, content, SEO & marketing automation</div>
+      </div>
+      <div class="section-count">12 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://www.jasper.ai" target="_blank">
+        <div class="best-badge">⭐ Best Copywriting</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(255,120,60,0.15);color:#ff9060">J</div>
+          <div><div class="card-name">Jasper AI</div><div class="card-maker">Jasper</div></div>
+        </div>
+        <div class="card-desc">Enterprise AI marketing platform. Brand voice training, campaign workflows, and 50+ content templates.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://surferseo.com" target="_blank">
+        <div class="best-badge">⭐ Best SEO</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b8f0">S</div>
+          <div><div class="card-name">Surfer SEO</div><div class="card-maker">Surfer</div></div>
+        </div>
+        <div class="card-desc">AI content optimization for search rankings. Content editor, keyword research, and SERP analysis in one.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://copy.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0ff">C</div>
+          <div><div class="card-name">Copy.ai</div><div class="card-maker">Copy.ai</div></div>
+        </div>
+        <div class="card-desc">AI copywriting for ads, emails, landing pages, and social media. 90+ use-case templates. GTM workflows.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.writesonic.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">W</div>
+          <div><div class="card-name">Writesonic</div><div class="card-maker">Writesonic</div></div>
+        </div>
+        <div class="card-desc">AI writing tool for SEO articles, ads, and landing pages. Botsonic chatbot builder included.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.semrush.com/ai-writing-assistant" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0c030">S</div>
+          <div><div class="card-name">Semrush AI</div><div class="card-maker">Semrush</div></div>
+        </div>
+        <div class="card-desc">SEO suite with AI writing. Keyword research, site audit, competitor analysis & content generation together.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.anyword.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f080b0">A</div>
+          <div><div class="card-name">Anyword</div><div class="card-maker">Anyword</div></div>
+        </div>
+        <div class="card-desc">Predictive AI for marketing copy. Scores your content for conversion before you publish. Data-driven writing.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.hubspot.com/artificial-intelligence" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,120,60,0.12);color:#ff8840">H</div>
+          <div><div class="card-name">HubSpot AI</div><div class="card-maker">HubSpot</div></div>
+        </div>
+        <div class="card-desc">AI across CRM, email, social, and content. Breeze AI agents automate full marketing and sales funnels.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.adcreative.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">A</div>
+          <div><div class="card-name">AdCreative.ai</div><div class="card-maker">AdCreative</div></div>
+        </div>
+        <div class="card-desc">Generate high-converting ad creatives in seconds. Scores ads for performance before you run them.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://vidiq.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">V</div>
+          <div><div class="card-name">VidIQ</div><div class="card-maker">VidIQ</div></div>
+        </div>
+        <div class="card-desc">YouTube AI coach. Title ideas, script generation, keyword research, and competitor analysis for creators.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.recently.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">R</div>
+          <div><div class="card-name">Predis.ai</div><div class="card-maker">Predis</div></div>
+        </div>
+        <div class="card-desc">Generate social media posts, carousels, and short videos from a single prompt. Auto-schedule and publish.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.brandmark.io" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0c030">B</div>
+          <div><div class="card-name">Brandmark</div><div class="card-maker">Brandmark</div></div>
+        </div>
+        <div class="card-desc">AI logo and brand identity generator. Create logos, color palettes, and brand kits in minutes.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.pencil.li" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#a897ff">P</div>
+          <div><div class="card-name">Pencil</div><div class="card-maker">Pencil</div></div>
+        </div>
+        <div class="card-desc">AI ad generation platform. Generate, test, and scale winning ad creatives. Connects to ad platforms directly.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- AI AGENTS -->
+  <section class="section" id="ai-agents">
+    <div class="section-header">
+      <div class="section-icon ic-agents">🤖</div>
+      <div>
+        <div class="section-title">AI Agents & Automation</div>
+        <div class="section-sub">Autonomous AI agents, workflow automation & browser agents</div>
+      </div>
+      <div class="section-count">10 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://www.anthropic.com/claude-code" target="_blank">
+        <div class="best-badge">⭐ Best Dev Agent</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.15);color:#a897ff">CC</div>
+          <div><div class="card-name">Claude Code</div><div class="card-maker">Anthropic</div></div>
+        </div>
+        <div class="card-desc">Agentic CLI coding tool. Works autonomously on your repo — writes, edits, tests, and commits code end-to-end.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://www.zapier.com/ai" target="_blank">
+        <div class="best-badge">⭐ Best Automation</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,120,60,0.15);color:#ff8840">Z</div>
+          <div><div class="card-name">Zapier AI</div><div class="card-maker">Zapier</div></div>
+        </div>
+        <div class="card-desc">AI-powered automation connecting 7000+ apps. Natural language workflows, AI actions, chatbot builder.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.make.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0ff">M</div>
+          <div><div class="card-name">Make</div><div class="card-maker">Make (Integromat)</div></div>
+        </div>
+        <div class="card-desc">Visual automation builder with AI modules. Complex multi-step workflows with conditional logic and data transforms.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://n8n.io" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0a020">n8</div>
+          <div><div class="card-name">n8n</div><div class="card-maker">n8n</div></div>
+        </div>
+        <div class="card-desc">Open-source workflow automation with AI nodes. Self-hostable, 400+ integrations, code when needed.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.adept.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40c090">A</div>
+          <div><div class="card-name">Adept AI</div><div class="card-maker">Adept</div></div>
+        </div>
+        <div class="card-desc">AI agent that operates software like a human. Automates enterprise workflows across web and desktop apps.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.lindy.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f080b0">L</div>
+          <div><div class="card-name">Lindy AI</div><div class="card-maker">Lindy</div></div>
+        </div>
+        <div class="card-desc">Build AI employees for sales, recruiting, support, and operations. No-code agent builder with rich integrations.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://agentgpt.reworkd.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">A</div>
+          <div><div class="card-name">AgentGPT</div><div class="card-maker">Reworkd</div></div>
+        </div>
+        <div class="card-desc">Autonomous AI agent in browser. Give it a goal, it plans and executes tasks step by step. Open source.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.bardeen.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0c030">B</div>
+          <div><div class="card-name">Bardeen</div><div class="card-maker">Bardeen</div></div>
+        </div>
+        <div class="card-desc">AI browser automation. Automate web tasks, scrape data, and connect apps without APIs. Chrome extension.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.crew.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">C</div>
+          <div><div class="card-name">CrewAI</div><div class="card-maker">CrewAI</div></div>
+        </div>
+        <div class="card-desc">Framework for multi-agent AI teams. Assign roles, tools, and goals to AI agents that collaborate on tasks.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#5090e0">M</div>
+          <div><div class="card-name">M365 Copilot</div><div class="card-maker">Microsoft</div></div>
+        </div>
+        <div class="card-desc">AI inside Word, Excel, PowerPoint, Outlook & Teams. Summarize meetings, draft docs, analyze data, send emails.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://www.perplexity.ai/assistant" target="_blank">
+        <div class="best-badge">⭐ Best Web Agent</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.15);color:#3ecfa0">P</div>
+          <div><div class="card-name">Perplexity Assistant</div><div class="card-maker">Perplexity AI</div></div>
+        </div>
+        <div class="card-desc">Agentic AI assistant that books, searches, and completes real-world tasks on Android and iOS. Action model.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.multion.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0b030">M</div>
+          <div><div class="card-name">MultiOn</div><div class="card-maker">MultiOn</div></div>
+        </div>
+        <div class="card-desc">AI web agent that browses the internet autonomously. Book flights, fill forms, extract data from any site.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.voiceflow.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#70b0f0">V</div>
+          <div><div class="card-name">Voiceflow</div><div class="card-maker">Voiceflow</div></div>
+        </div>
+        <div class="card-desc">Build and deploy AI agents and chatbots visually. Power complex conversational workflows for enterprise.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://langchain.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.12);color:#40d090">L</div>
+          <div><div class="card-name">LangChain</div><div class="card-maker">LangChain AI</div></div>
+        </div>
+        <div class="card-desc">Open-source framework for building LLM-powered applications. Chains, agents, RAG, memory. Developer standard.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section" id="education">
+    <div class="section-header">
+      <div class="section-icon ic-education">🎓</div>
+      <div>
+        <div class="section-title">Education & Learning</div>
+        <div class="section-sub">AI tutors, language learning & skill development</div>
+      </div>
+      <div class="section-count">8 tools</div>
+    </div>
+    <div class="cards-grid">
+      <a class="ai-card best" href="https://www.khanmigo.ai" target="_blank">
+        <div class="best-badge">⭐ Best Tutor</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(29,158,117,0.15);color:#3ecfa0">K</div>
+          <div><div class="card-name">Khanmigo</div><div class="card-maker">Khan Academy</div></div>
+        </div>
+        <div class="card-desc">Socratic AI tutor by Khan Academy. Guides students to answers without giving them away. Math, science, history.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://www.duolingo.com/ai" target="_blank">
+        <div class="best-badge">⭐ Best Language</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(99,153,34,0.15);color:#a0d060">D</div>
+          <div><div class="card-name">Duolingo Max</div><div class="card-maker">Duolingo</div></div>
+        </div>
+        <div class="card-desc">AI language learning with GPT-4. Roleplay real conversations, explain mistakes, and personalize lessons.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.coursera.org/coach" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#60b0f0">C</div>
+          <div><div class="card-name">Coursera Coach</div><div class="card-maker">Coursera</div></div>
+        </div>
+        <div class="card-desc">AI learning assistant built into Coursera. Answers questions about course content, quizzes you, and guides study.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.socratic.org" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,200,66,0.12);color:#f0c030">S</div>
+          <div><div class="card-name">Socratic</div><div class="card-maker">Google</div></div>
+        </div>
+        <div class="card-desc">Snap a photo of any homework problem — get step-by-step explanations, videos, and web resources. Free.</div>
+        <div class="card-tags"><span class="tag tag-free">Free</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.photomath.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(216,90,48,0.12);color:#f08060">P</div>
+          <div><div class="card-name">Photomath</div><div class="card-maker">Google</div></div>
+        </div>
+        <div class="card-desc">Point camera at any math problem for instant step-by-step solution. Arithmetic to calculus. 220M downloads.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.brilliant.org" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,120,60,0.12);color:#ff8840">B</div>
+          <div><div class="card-name">Brilliant</div><div class="card-maker">Brilliant</div></div>
+        </div>
+        <div class="card-desc">Interactive STEM learning with AI personalization. Math, logic, data science, and CS through problem-solving.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://quizlet.com/features/q-chat" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#5090f0">Q</div>
+          <div><div class="card-name">Quizlet Q-Chat</div><div class="card-maker">Quizlet</div></div>
+        </div>
+        <div class="card-desc">AI tutor inside Quizlet. Practice via conversation, get test-ready, and generate study sets from any material.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.wolframalpha.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(212,83,126,0.12);color:#f080b0">W</div>
+          <div><div class="card-name">Wolfram Alpha</div><div class="card-maker">Wolfram Research</div></div>
+        </div>
+        <div class="card-desc">Computational knowledge engine. Solves equations, plots graphs, answers science queries with step-by-step work.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.stepwise.ai" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(55,138,221,0.12);color:#70b0f0">S</div>
+          <div><div class="card-name">Mathway</div><div class="card-maker">Mathway</div></div>
+        </div>
+        <div class="card-desc">Solve any math problem instantly with step-by-step solutions. Algebra to calculus with visual explanations.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card best" href="https://www.synthesis.com" target="_blank">
+        <div class="best-badge">⭐ Best K-12</div>
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(245,120,60,0.15);color:#ff8840">S</div>
+          <div><div class="card-name">Synthesis</div><div class="card-maker">Synthesis</div></div>
+        </div>
+        <div class="card-desc">AI math tutor for kids. Adapts to each learner. 10x faster math progress than classroom. Built by SpaceX school.</div>
+        <div class="card-tags"><span class="tag tag-paid">Paid</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+      <a class="ai-card" href="https://www.readthistwice.com" target="_blank">
+        <div class="card-top">
+          <div class="card-logo" style="background:rgba(168,151,255,0.12);color:#b0a0ff">S</div>
+          <div><div class="card-name">Speak</div><div class="card-maker">Speak</div></div>
+        </div>
+        <div class="card-desc">AI language tutor for real conversation practice. Instant feedback on pronunciation and fluency. 20+ languages.</div>
+        <div class="card-tags"><span class="tag tag-freemium">Freemium</span></div>
+        <div class="card-link"><span class="open-btn">Open ↗</span></div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>AI Universe — Curated by humans, for humans. Links open the official websites. Not affiliated with any listed AI company.</p>
+  <p style="margin-top:6px;color:#333355">Updated June 2026 · 250+ tools across 31 categories</p>
+</footer>
+
+<script>
+function filterTools(query) {
+  query = query.toLowerCase().trim();
+  const cards = document.querySelectorAll('.ai-card');
+  const sections = document.querySelectorAll('.section');
+
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.classList.toggle('hidden', query && !text.includes(query));
+  });
+
+  sections.forEach(section => {
+    const visibleCards = section.querySelectorAll('.ai-card:not(.hidden)');
+    section.classList.toggle('empty', query && visibleCards.length === 0);
+  });
+}
+
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
